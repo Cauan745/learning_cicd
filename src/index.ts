@@ -18,6 +18,12 @@ app.get("/:name", (req, res) => {
     })
 })
 
+app.get("/completed", (req,res)=>{
+    res.header("Content-Type: text/html; charset=utf-8")
+
+    res.send("<h1>The Github Actions and Docker deployment to VPS is complete!</h1>")
+})
+
 app.listen(port, ()=>{
     console.log("Server Running on Port:" + port)
 })
