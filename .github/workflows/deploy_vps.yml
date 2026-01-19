@@ -28,5 +28,5 @@ jobs:
                     key: ${{secrets.SSH_PRIVATE_KEY}}
                     script: |
                         cd first_cicd
-                        docker build -t learning_docker .
-                        docker run learning-docker:latest
+                        sudo docker build -t learning_docker .
+                        sudo docker run learning-docker:latest
