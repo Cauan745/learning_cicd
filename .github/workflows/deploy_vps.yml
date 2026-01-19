@@ -1,0 +1,32 @@
+name: "Deploy to VPS"
+on:
+    push:
+        branches:
+            main
+
+jobs:
+    build_deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: "Download Code"
+                uses: actions/checkout@v4
+
+            -   name: "Copy files to VPS"
+                uses: appleboy/scp-action@v1
+                with:
+                    host: ${{secrets.VPS_IP}}
+                    username: ${{secrets.VPS_USER}}
+                    key: ${{secrets.SSH_PRIVATE_KEY}}
+                    source: "."
+                    target: "./first_cicd"
+                
+            -   name: "Build files"
+                uses: appleboy/ssh-action@1.0.3
+                with:
+                    host: ${{secrets.VPS_IP}}
+                    username: ${{secrets.VPS_USER}}
+                    key: ${{secrets.SSH_PRIVATE_KEY}}
+                    script: |
+                        cd first_cicd
+                        docker build -t learning_docker .
+                        docker run learning-docker:latest
