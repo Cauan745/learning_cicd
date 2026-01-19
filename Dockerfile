@@ -4,4 +4,6 @@ WORKDIR docker_images
 
 COPY . .
 
-RUN ["npm install", "npm run start"]
+RUN npm install
+
+RUN npm run start
